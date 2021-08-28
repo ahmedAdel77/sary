@@ -4,7 +4,6 @@ import {
   OnInit,
   AfterViewInit,
   ViewChild,
-  ChangeDetectorRef,
 } from '@angular/core';
 
 import { MatSort } from '@angular/material/sort';
@@ -28,10 +27,7 @@ export class HeroesTableComponent implements OnInit, AfterViewInit {
   @Input() searchQuery;
   @Input() powerSort;
 
-  constructor(
-    private heroes: HeroService,
-    private changeDetectorRefs: ChangeDetectorRef
-  ) {}
+  constructor(private heroes: HeroService) {}
 
   displayedColumns: string[] = ['name', 'power', 'rate'];
 
@@ -46,7 +42,6 @@ export class HeroesTableComponent implements OnInit, AfterViewInit {
       this.heroesData = [...heroes];
       this.HeroesDataToView = [...heroes];
       this.dataSource = new MatTableDataSource(this.HeroesDataToView);
-      this.changeDetectorRefs.detectChanges();
     });
 
     this.heroes.sortHeroesByPower.subscribe((isSort) => {
@@ -56,7 +51,6 @@ export class HeroesTableComponent implements OnInit, AfterViewInit {
         this.HeroesDataToView = [...this.heroesData];
       }
       this.dataSource = new MatTableDataSource(this.HeroesDataToView);
-      this.changeDetectorRefs.detectChanges();
     });
 
     this.heroes.getHeroes();
