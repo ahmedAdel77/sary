@@ -1,0 +1,24 @@
+<table class="custom-table">
+  <tr>
+    <th>Name</th>
+    <td>
+      <a routerLink="/hero/{{ hero.id }}">
+        {{ hero.name }}
+      </a>
+    </td>
+  </tr>
+  <tr>
+    <th>Power</th>
+    <td>{{ hero.powers }}</td>
+  </tr>
+  <tr>
+    <th>Rate</th>
+    <td class="last">
+      <ng-rating-bar
+        [value]="hero.rate"
+        [ratingCount]="5"
+        colorActive="#4B0082"
+      ></ng-rating-bar>
+    </td>
+  </tr>
+</table>

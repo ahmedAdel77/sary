@@ -1,0 +1,30 @@
+.hero-card {
+  display: flex;
+  margin: auto;
+  flex-direction: column;
+  border: 3px solid rgb(153, 202, 248);
+  width: 500px;
+  padding: 20px;
+
+  .card {
+    &__icon {
+      text-align: center;
+      mat-icon {
+        font-size: 50px;
+        color: rgb(153, 202, 248);
+      }
+    }
+    &__header {
+      margin-right: 30px;
+    }
+    &__name,
+    &__description {
+      display: flex;
+      &:first-child {
+        margin-right: 30px;
+      }
+    }
+    &__powers {
+    }
+  }
+}

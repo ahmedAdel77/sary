@@ -1,0 +1,11 @@
+<div class="content">
+  <div class="content__search">
+    <app-filters (searchText)="setSearchText($event)"></app-filters>
+  </div>
+  <div class="content__table">
+    <app-heroes-table
+      class="heroes-table"
+      [searchQuery]="searchText"
+    ></app-heroes-table>
+  </div>
+</div>

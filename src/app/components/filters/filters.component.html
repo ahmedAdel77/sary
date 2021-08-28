@@ -1,0 +1,22 @@
+<div class="filters-container">
+  <mat-expansion-panel  class="filters" expanded hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title fxLayoutAlign="space-between start">
+        Filters
+        <mat-icon>filter_list</mat-icon>
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+
+    <div class="filters__body" fxLayout="column" fxLayoutAlign="start start">
+      <mat-form-field class="filters__search" appearance="outline">
+        <mat-label>Search</mat-label>
+        <mat-icon matPrefix>search</mat-icon>
+        <input matInput type="search" class="search-input" (keyup)="onSearchTextChange($event)" [value]="textToSearch" />
+        <button *ngIf="textToSearch" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-form-field>
+      <mat-slide-toggle  [(ngModel)]="isSortedByPower"  (change)="sortByPower($event)" labelPosition="before">Sort By Power</mat-slide-toggle>
+    </div>
+  </mat-expansion-panel>
+</div>
