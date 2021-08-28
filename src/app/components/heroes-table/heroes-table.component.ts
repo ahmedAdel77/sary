@@ -4,6 +4,7 @@ import {
   OnInit,
   AfterViewInit,
   ViewChild,
+  ChangeDetectorRef,
 } from '@angular/core';
 
 import { MatSort } from '@angular/material/sort';
@@ -27,7 +28,10 @@ export class HeroesTableComponent implements OnInit, AfterViewInit {
   @Input() searchQuery;
   @Input() powerSort;
 
-  constructor(private heroes: HeroService) {}
+  constructor(
+    private heroes: HeroService,
+    private changeDetectorRefs: ChangeDetectorRef
+  ) {}
 
   displayedColumns: string[] = ['name', 'power', 'rate'];
 
@@ -38,11 +42,13 @@ export class HeroesTableComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.heroes.getHeroes().subscribe((heroes) => {
+    this.heroes.heroesData.subscribe((heroes) => {
       this.heroesData = [...heroes];
       this.HeroesDataToView = [...heroes];
       this.dataSource = new MatTableDataSource(this.HeroesDataToView);
+      this.changeDetectorRefs.detectChanges();
     });
+
     this.heroes.sortHeroesByPower.subscribe((isSort) => {
       if (isSort) {
         this.HeroesDataToView = [...this.HeroesDataToView.sort(sortByPower)];
@@ -50,11 +56,14 @@ export class HeroesTableComponent implements OnInit, AfterViewInit {
         this.HeroesDataToView = [...this.heroesData];
       }
       this.dataSource = new MatTableDataSource(this.HeroesDataToView);
+      this.changeDetectorRefs.detectChanges();
     });
+
+    this.heroes.getHeroes();
   }
 
   onRateValueChange(event: any, heroId: String) {
     const ratingData = { rate: event, id: heroId };
-    this.heroes.editHeroRating.next(ratingData);
+    this.heroes.rateValueChange(ratingData);
   }
 }

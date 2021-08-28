@@ -11,11 +11,14 @@ import { HeroService } from './../../services/hero.service';
   styleUrls: ['./custom-table.component.scss'],
 })
 export class CustomTableComponent implements OnInit {
-
   @Input() hero: Hero;
-
 
   constructor(private heroes: HeroService) {}
 
   ngOnInit(): void {}
+
+  onRateValueChange(event: any, heroId: String) {
+    const ratingData = { rate: event, id: heroId };
+    this.heroes.rateValueChange(ratingData);
+  }
 }

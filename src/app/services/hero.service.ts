@@ -10,23 +10,23 @@ import { HEROES } from './../data/mock-heroes';
 })
 export class HeroService {
   sortHeroesByPower = new Subject();
-  editHeroRating = new Subject();
+  heroesData = new Subject<Hero[]>();
 
-  constructor() {
-    this.editHeroRating.subscribe((data: { rate: number; id: String }) => {
-      let heroToUpdate = HEROES.findIndex((hero) => hero.id === data.id);
-      HEROES[heroToUpdate].rate = data.rate;
-    });
+  constructor() {}
+
+  rateValueChange(data: { rate: number; id: String }) {
+    let heroesList = [...HEROES];
+    let heroToUpdate = heroesList.findIndex((hero) => hero.id === data.id);
+    heroesList[heroToUpdate].rate = data.rate;
+    this.heroesData.next([...heroesList]);
   }
 
-
-  getHeroes(): Observable<Hero[]> {
-    const heroes = of(HEROES);
-    return heroes;
+  getHeroes(): void {
+    this.heroesData.next([...HEROES]);
   }
 
   getHero(id: String): Observable<Hero> {
-    const hero = HEROES.find(hero => hero.id === id)!;
+    const hero = HEROES.find((hero) => hero.id === id)!;
     return of(hero);
   }
 }

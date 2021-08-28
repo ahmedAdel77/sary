@@ -16,6 +16,7 @@
     <td class="last">
       <ng-rating-bar
         [value]="hero.rate"
+        (valueChange)="onRateValueChange($event, hero.id)"
         [ratingCount]="5"
         colorActive="#4B0082"
       ></ng-rating-bar>
